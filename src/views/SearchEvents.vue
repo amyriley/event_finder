@@ -12,18 +12,18 @@
       <v-text-field :value="formattedDate" slot="activator" label="search by date" prepend-icon="date_range" ></v-text-field>
       <v-date-picker v-model="searchDate"></v-date-picker>
     </v-menu>
-    <EventCard></EventCard>
+    <EventCardSearchResult></EventCardSearchResult>
   </div>
 </template>
 
 <script>
 import format from 'date-fns/format'
-import EventCard from '@/components/EventCard'
+import EventCardSearchResult from '@/components/EventCardSearchResult'
 
 export default {
   name: 'search-events',
   components: {
-    EventCard
+    EventCardSearchResult
   },
   data() {
     return {
