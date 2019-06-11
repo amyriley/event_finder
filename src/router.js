@@ -21,9 +21,10 @@ export default new Router({
       component: SearchEvents
     },
     {
-      path: '/DetailedEventInfo',
+      path: '/DetailedEventInfo/:eventID',
       name: 'detailed-event-info',
-      component: DetailedEventInfo
+      component: DetailedEventInfo,
+      props: true
     },
   ]
 })

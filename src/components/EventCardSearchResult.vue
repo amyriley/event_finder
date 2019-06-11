@@ -13,7 +13,7 @@
                                 ></v-img>
                             </v-flex>
                             <v-flex xs7>
-                                <v-card-title primary-title>
+                                <v-card-title primary-title class="text-xs-left-center">
                                     <div>
                                         <div class="subheading">{{ event.performance[0].displayName }}</div>
                                         <div>{{ event.start.date }}</div>
@@ -21,7 +21,10 @@
                                     </div>
                                 </v-card-title>
                                 <v-card-actions>
-                                    <v-btn flat to="/DetailedEventInfo">More Details</v-btn>
+                                    <v-btn :to="{ name: 'detailed-event-info', params: { eventID: event.id, venueID: event.venue.id }}" class="text-xs-left" flat :id="event.id" @click="loadEventsForSameVenue(venueID)">More Details</v-btn>
+                                    <v-btn icon disabled>
+                                        <v-icon>star</v-icon>
+                                    </v-btn>
                                 </v-card-actions>
                             </v-flex>
                         </v-layout>
@@ -34,16 +37,17 @@
 
 <script>
 import { mapState } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
     name: 'event-card-search-result',
     mounted () {
-        this.$store.dispatch('loadEvents')
+        this.$store.dispatch('loadEvents');
     },
     computed: {
         ...mapState([
-            'events'
+            'events',
         ])
-    }
+    },
 }
 </script>

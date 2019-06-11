@@ -4,7 +4,7 @@
       <v-toolbar flat app dark>
         <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
         <v-spacer></v-spacer>
-        <v-text-field label="search by artist" single-line></v-text-field>
+        <input type="text" v-model="search" placeholder="search artists"/>
       </v-toolbar>
       <v-navigation-drawer v-model="drawer" app></v-navigation-drawer>
     </nav>
@@ -28,13 +28,14 @@ export default {
   data() {
     return {
       drawer: false,
-      searchDate: null
+      searchDate: null,
+      search: ''
     }
   },
   computed: {
     formattedDate() {
       return this.searchDate ? format(this.searchDate, 'Do MMM YYYY') : ''
-    }
+    },
   }
 }
 </script>
