@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import { async } from 'q';
 
 Vue.use(Vuex)
 Vue.use(VueAxios, axios)
@@ -22,7 +21,7 @@ export default new Vuex.Store({
   },
   actions: {
     loadEvents({ commit }) {
-      async
+      this.loading = true;
       axios
         .get('https://api.songkick.com/api/3.0/metro_areas/28443/calendar.json?apikey=b4k7heOg6FoqZwFY')
         .then(data => {
@@ -33,18 +32,21 @@ export default new Vuex.Store({
         .catch(error => {
           console.log(error);
         })
+        this.loading = false;
     },
-    loadEventsForSameVenue({ commit }, venueID) {
-      axios
+    async loadEventsForSameVenue({ commit }, venueID) {
+      this.loading = true;
+      await axios
         .get('https://api.songkick.com/api/3.0/venues/' + venueID + '/calendar.json?apikey=b4k7heOg6FoqZwFY')
-        .then(data => {
-          console.log(data.data.resultsPage.results.event);
-          let eventsSameVenue = data.data.resultsPage.results.event;
+        .then(result => {
+          console.log(result.data.resultsPage.results.event);
+          let eventsSameVenue = result.data.resultsPage.results.event;
           commit('SET_EVENTS_SAME_VENUE', eventsSameVenue);
         })      
         .catch(error => {
           console.log(error);
         })  
+        this.loading = false;
     }
    },
   mutations: {

@@ -21,7 +21,7 @@
                                     </div>
                                 </v-card-title>
                                 <v-card-actions>
-                                    <v-btn :to="{ name: 'detailed-event-info', params: { eventID: event.id, venueID: event.venue.id }}" class="text-xs-left" flat :id="event.id" @click="loadEventsForSameVenue(venueID)">More Details</v-btn>
+                                    <v-btn @click.native="loadEventsForSameVenue" :to="{ name: 'detailed-event-info', params: { eventID: event.id, venueID: event.venue.id }}" class="text-xs-left" flat :id="event.id">More Details</v-btn>
                                     <v-btn icon disabled>
                                         <v-icon>star</v-icon>
                                     </v-btn>
@@ -38,6 +38,7 @@
 <script>
 import { mapState } from 'vuex'
 import { mapActions } from 'vuex'
+import router from '@/router'
 
 export default {
     name: 'event-card-search-result',
@@ -48,6 +49,16 @@ export default {
         ...mapState([
             'events',
         ])
+    },
+    methods: {
+        test: function() {
+            console.log('test works');
+        },
+        loadEventsForSameVenue: function () {
+            console.log('button click')
+            this.$store.dispatch('loadEventsForSameVenue', router.currentRoute.params.venueID);
+            console.log('dispatch done')
+        }
     },
 }
 </script>

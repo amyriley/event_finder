@@ -23,6 +23,7 @@ export default {
   computed: {
     ...mapState([
         'events',
+        'loading'
     ]),
     ...mapGetters([
         'getEventById'
