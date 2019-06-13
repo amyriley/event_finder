@@ -22,7 +22,7 @@
                                     </div>
                                 </v-card-title>
                                 <v-card-actions>
-                                    <v-btn class="text-xs-left" flat>Tickets</v-btn>
+                                    <v-btn :href="event.uri" class="text-xs-left" flat>Tickets</v-btn>
                                     <v-btn icon disabled>
                                         <v-icon>star</v-icon>
                                     </v-btn>

@@ -13,9 +13,6 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'detailed-event-info',
-  mounted () {
-    // console.log(this.$route.params)
-  },
   components: {
     DetailedEventCard,
     MoreEventsList
@@ -23,7 +20,8 @@ export default {
   computed: {
     ...mapState([
         'events',
-        'loading'
+        'loading',
+        'searchInput'
     ]),
     ...mapGetters([
         'getEventById'

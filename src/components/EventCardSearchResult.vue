@@ -1,6 +1,6 @@
 <template>
     <div id="event-card-search-result" >
-        <div class="event-card" v-for="(event, index) in events" :key="index">
+        <div class="event-card" v-for="(event, index) in filteredEvents" :key="index">
             <v-flex xs12>
                 <v-card flat>
                     <v-container fluid grid-list-lg>
@@ -48,16 +48,17 @@ export default {
     computed: {
         ...mapState([
             'events',
-        ])
+            'searchInput'
+        ]),
+        filteredEvents: function () {
+            return this.events.filter((event) => {
+                return event.displayName.toLowerCase().match(this.searchInput.toLowerCase())
+            })
+        }
     },
     methods: {
-        test: function() {
-            console.log('test works');
-        },
         loadEventsForSameVenue: function () {
-            console.log('button click')
             this.$store.dispatch('loadEventsForSameVenue', router.currentRoute.params.venueID);
-            console.log('dispatch done')
         }
     },
 }

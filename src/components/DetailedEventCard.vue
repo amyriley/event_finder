@@ -29,6 +29,7 @@
 <script>
 import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
+import gmapsInit from '@/utils/gmaps';
 
 export default {
     name: 'detailed-event-card',
