@@ -9,7 +9,7 @@
       <v-navigation-drawer v-model="drawer" app></v-navigation-drawer>
     </nav>
     <v-menu dark>
-      <v-text-field :value="formattedDate" slot="activator" label="search by date" prepend-icon="date_range" ></v-text-field>
+      <v-text-field slot="activator" label="search by date" prepend-icon="date_range" ></v-text-field>
       <v-date-picker v-model="searchDate"></v-date-picker>
     </v-menu>
     <EventCardSearchResult></EventCardSearchResult>
@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import format from 'date-fns/format'
 import EventCardSearchResult from '@/components/EventCardSearchResult'
 import { mapState } from 'vuex'
 
@@ -29,23 +28,28 @@ export default {
   data() {
     return {
       drawer: false,
-      searchDate: null,
     }
   },
   computed: {
     ...mapState([
             'events',
-            'searchInput'
+            'searchInput',
+            'searchDate'
         ]),
-    formattedDate() {
-      return this.searchDate ? format(this.searchDate, 'Do MMM YYYY') : ''
-    },
     searchInput: {
       get() {
         return this.$store.state.searchInput;
       },
       set(value) {
         this.$store.commit('UPDATE_SEARCH_INPUT', value);
+      },
+    },
+    searchDate: {
+      get() {
+        return this.$store.state.searchDate;
+      },
+      set(value) {
+        this.$store.commit('UPDATE_SEARCH_DATE', value);
       },
     },
   },

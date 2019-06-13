@@ -12,6 +12,7 @@ export default new Vuex.Store({
     events: [],
     eventsSameVenue: [],
     searchInput: '',
+    searchDate: '',
     loading: false,
   },
   getters: {
@@ -25,7 +26,7 @@ export default new Vuex.Store({
     loadEvents({ commit }) {
       this.loading = true;
       axios
-        .get(`https://api.songkick.com/api/3.0/metro_areas/28443/calendar.json?apikey=${apiConfig.songkickKey}`)
+        .get(`https://api.songkick.com/api/3.0/metro_areas/28443/calendar.json?&per_page=100&apikey=${apiConfig.songkickKey}`)
         .then(data => {
           console.log(data.data.resultsPage.results.event);
           let events = data.data.resultsPage.results.event;
@@ -60,6 +61,9 @@ export default new Vuex.Store({
     },
     UPDATE_SEARCH_INPUT (state, value) {
       state.searchInput = value;
+    },
+    UPDATE_SEARCH_DATE (state, value) {
+      state.searchDate = value;
     }
   }
 })

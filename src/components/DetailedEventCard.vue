@@ -12,6 +12,7 @@
                             <div>
                                 <h3 class="headline mb-0">{{ event.performance[0].displayName }} </h3>
                                 <div>{{ event.start.date }}</div>
+                                <div>{{ event.start.time }}</div>
                             </div>
                         </v-card-title>
                         <v-card-actions>
@@ -31,8 +32,15 @@ import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
 import gmapsInit from '@/utils/gmaps';
 
+var moment = require('moment');
+
 export default {
     name: 'detailed-event-card',
+    data () {
+        return {
+            moment: moment
+        }
+    },
     props: ['eventID', 'venueID'],
     computed: {
         ...mapState([

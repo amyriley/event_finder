@@ -16,7 +16,7 @@
                                 <v-card-title primary-title class="text-xs-left-center">
                                     <div>
                                         <div class="subheading">{{ event.performance[0].displayName }}</div>
-                                        <div>{{ event.start.date }}</div>
+                                        <div>{{ moment( event.start.date ).format("ddd, MMM Do YYYY") }} </div>
                                         <div>{{ event.venue.displayName }}</div>
                                     </div>
                                 </v-card-title>
@@ -40,26 +40,38 @@ import { mapState } from 'vuex'
 import { mapActions } from 'vuex'
 import router from '@/router'
 
+var moment = require('moment');
+
 export default {
     name: 'event-card-search-result',
+    data () {
+        return {
+            moment: moment
+        }
+    },
     mounted () {
         this.$store.dispatch('loadEvents');
     },
     computed: {
         ...mapState([
             'events',
-            'searchInput'
+            'searchInput',
+            'searchDate'
         ]),
-        filteredEvents: function () {
+        filteredEvents () {
+            if (this.searchInput === '' && this.searchDate === '') {
+                return this.events;
+            }
+
             return this.events.filter((event) => {
-                return event.displayName.toLowerCase().match(this.searchInput.toLowerCase())
+                return event.performance[0].displayName.toLowerCase().match(this.searchInput.toLowerCase()) && event.start.date.match(this.searchDate)
             })
-        }
+        },
     },
     methods: {
         loadEventsForSameVenue: function () {
             this.$store.dispatch('loadEventsForSameVenue', router.currentRoute.params.venueID);
-        }
+        },
     },
 }
 </script>
