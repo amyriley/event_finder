@@ -18,7 +18,7 @@
                                     <div>
                                         <div class="subheading"></div>
                                         <div>{{ event.performance[0].displayName }}</div>
-                                        <div>{{ event.start.date }}</div>
+                                        <div>{{ moment( event.start.date ).format("ddd, MMM Do YYYY") }}</div>
                                     </div>
                                 </v-card-title>
                                 <v-card-actions>
@@ -40,6 +40,7 @@
 import { mapState } from 'vuex'
 import { mapActions } from 'vuex'
 import { mapGetters } from 'vuex'
+import moment from 'moment'
 
 export default {
     name: 'more-events-list',
@@ -51,6 +52,9 @@ export default {
         ]),
         ...mapGetters([
         ]),
+    },
+    methods: {
+        moment
     }
 }
 </script>

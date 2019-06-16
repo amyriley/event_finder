@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import apiConfig from '@/apiKeys';
 
 export default {
   name: 'App',

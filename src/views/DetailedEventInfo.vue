@@ -1,6 +1,7 @@
 <template>
   <div class="detailed-event-info">
     <DetailedEventCard></DetailedEventCard>
+    <v-spacer></v-spacer>
     <MoreEventsList></MoreEventsList>
   </div>
 </template>

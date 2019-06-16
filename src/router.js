@@ -13,12 +13,14 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      props: true
     },
     {
       path: '/SearchEvents',
-      name: 'search_events',
-      component: SearchEvents
+      name: 'search-events',
+      component: SearchEvents,
+      props: true
     },
     {
       path: '/DetailedEventInfo/:eventID',

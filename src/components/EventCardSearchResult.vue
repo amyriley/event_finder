@@ -21,7 +21,7 @@
                                     </div>
                                 </v-card-title>
                                 <v-card-actions>
-                                    <v-btn @click.native="loadEventsForSameVenue" :to="{ name: 'detailed-event-info', params: { eventID: event.id, venueID: event.venue.id }}" class="text-xs-left" flat :id="event.id">More Details</v-btn>
+                                    <v-btn @click.native="loadEventsForSameVenue" :to="{ name: 'detailed-event-info', params: { eventID: event.id, venueID: event.venue.id, event: event }}" class="text-xs-left" flat>More Details</v-btn>
                                     <v-btn icon disabled>
                                         <v-icon>star</v-icon>
                                     </v-btn>
@@ -39,18 +39,12 @@
 import { mapState } from 'vuex'
 import { mapActions } from 'vuex'
 import router from '@/router'
-
-var moment = require('moment');
+import moment from 'moment'
 
 export default {
     name: 'event-card-search-result',
-    data () {
-        return {
-            moment: moment
-        }
-    },
     mounted () {
-        this.$store.dispatch('loadEvents');
+        this.$store.dispatch('loadEvents', 28443);
     },
     computed: {
         ...mapState([
@@ -72,6 +66,7 @@ export default {
         loadEventsForSameVenue: function () {
             this.$store.dispatch('loadEventsForSameVenue', router.currentRoute.params.venueID);
         },
+        moment
     },
 }
 </script>

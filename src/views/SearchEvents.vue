@@ -9,7 +9,7 @@
       <v-navigation-drawer v-model="drawer" app></v-navigation-drawer>
     </nav>
     <v-menu dark>
-      <v-text-field slot="activator" label="search by date" prepend-icon="date_range" ></v-text-field>
+      <v-text-field slot="activator" :value="getSelectedDateLabel(searchDate)"  prepend-icon="date_range" ></v-text-field>
       <v-date-picker v-model="searchDate"></v-date-picker>
     </v-menu>
     <EventCardSearchResult></EventCardSearchResult>
@@ -19,6 +19,8 @@
 <script>
 import EventCardSearchResult from '@/components/EventCardSearchResult'
 import { mapState } from 'vuex'
+import router from '@/router'
+import moment from 'moment'
 
 export default {
   name: 'search-events',
@@ -28,6 +30,13 @@ export default {
   data() {
     return {
       drawer: false,
+      searchDate2: '',
+      searchInput2: ''
+    }
+  },
+  mounted() {
+    loadEventsForMetroArea => {
+        this.$store.dispatch('loadEventsForMetroArea', router.currentRoute.params.location.metroAreaId);
     }
   },
   computed: {
@@ -51,7 +60,17 @@ export default {
       set(value) {
         this.$store.commit('UPDATE_SEARCH_DATE', value);
       },
-    },
+    }
   },
+  methods: {
+    moment,
+    getSelectedDateLabel: (date) => {
+      if (!date) {
+        return 'Search by date';
+      } else {
+        return moment(date).format('ddd, MMM Do YYYY');
+      }
+    }
+  }
 }
 </script>
