@@ -12,7 +12,7 @@
       <v-text-field slot="activator" :value="getSelectedDateLabel(searchDate)"  prepend-icon="date_range" ></v-text-field>
       <v-date-picker v-model="searchDate"></v-date-picker>
     </v-menu>
-    <EventCardSearchResult></EventCardSearchResult>
+    <EventCardSearchResult :metroAreaId="metroAreaId"></EventCardSearchResult>
   </div>
 </template>
 
@@ -24,19 +24,17 @@ import moment from 'moment'
 
 export default {
   name: 'search-events',
+  props: ['location'],
+  mounted() {
+    console.log(this.$route.params.location.metroAreaId)
+  },
   components: {
     EventCardSearchResult
   },
   data() {
     return {
       drawer: false,
-      searchDate2: '',
-      searchInput2: ''
-    }
-  },
-  mounted() {
-    loadEventsForMetroArea => {
-        this.$store.dispatch('loadEventsForMetroArea', router.currentRoute.params.location.metroAreaId);
+      metroAreaId: this.$route.params.location.metroAreaId
     }
   },
   computed: {

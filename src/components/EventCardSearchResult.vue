@@ -43,8 +43,9 @@ import moment from 'moment'
 
 export default {
     name: 'event-card-search-result',
+    props: ['metroAreaId'],
     mounted () {
-        this.$store.dispatch('loadEvents', 28443);
+        this.$store.dispatch('loadEvents', this.$props.metroAreaId);
     },
     computed: {
         ...mapState([
