@@ -4,16 +4,18 @@
             <div class="text-xs-center">
                 <v-menu offset-y>
                     <template v-slot:activator="{ on }">
-                        <v-btn
-                        color="primary"
-                        dark
-                        v-on="on"
-                        >
-                        Select City
-                        </v-btn>
+                        <div class="text-xs-center">
+                            <v-btn
+                            color="success"
+                            v-on="on"
+                            round
+                            >
+                            Select City
+                            </v-btn>
+                        </div>
                     </template>
                     <v-list>
-                        <v-list-tile v-for="(location, index) in germanyLocations" :key="index" :to="{ name: 'search-events', params: { location: location }}">
+                        <v-list-tile v-for="(location, index) in germanyLocations" :key="index" :to="{ name: 'search-events', params: { location: location }}" @click.native="loadEvents">
                             <v-list-tile-title >{{ location.cityName }}</v-list-tile-title>
                         </v-list-tile>
                     </v-list>
@@ -38,5 +40,11 @@ export default {
             'germanyLocations',
         ]),
     },
+    methods: {
+        loadEvents: function () {
+            this.$store.commit('UPDATE_METRO_AREA_ID', router.currentRoute.params.location.metroAreaId);
+            this.$store.dispatch('loadEvents', router.currentRoute.params.location.metroAreaId);
+        },
+    }
 }
 </script>

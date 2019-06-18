@@ -1,12 +1,13 @@
 <template>
   <div class="detailed-event-info">
     <DetailedEventCard></DetailedEventCard>
-    <v-spacer></v-spacer>
     <MoreEventsList></MoreEventsList>
+    <NavigationBottom></NavigationBottom>
   </div>
 </template>
 
 <script>
+import NavigationBottom from '@/components/NavigationBottom'
 import DetailedEventCard from '@/components/DetailedEventCard'
 import MoreEventsList from '@/components/MoreEventsList'
 import { mapState } from 'vuex'
@@ -16,7 +17,8 @@ export default {
   name: 'detailed-event-info',
   components: {
     DetailedEventCard,
-    MoreEventsList
+    MoreEventsList,
+    NavigationBottom
   },
   computed: {
     ...mapState([

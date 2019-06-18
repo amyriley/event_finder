@@ -6,7 +6,13 @@ import store from './store'
 import moment from 'moment'
 import apiConfig from '@/apiKeys'
 
+import 'babel-polyfill';
+// import VueFirebase from 'vue-firebase'
+
 Vue.config.productionTip = false
+
+// firebase.initializeApp(firebaseConfig);
+// Vue.prototype.$firebase = firebase;
 
 new Vue({
   router,

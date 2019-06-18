@@ -1,10 +1,24 @@
 <template>
   <div class="home">
-    <v-content>
-      <h1>Event Finder</h1>
-      <p>Find live music events...</p>
-      <GermanyEventsDropdown></GermanyEventsDropdown>
-    </v-content>  
+    <div>
+      <v-layout align-center>
+        <v-flex xs12>
+          <v-content class="text-xs-center white--text">
+              <div>
+                <v-flex>
+                  <div class="display-1 text-xs-center pa-5 ma-4">Music Event Finder</div>
+                </v-flex>
+                <v-flex class="pa-5">
+                  <div class="title">Find live music events near you!</div>
+                </v-flex>
+                <div>
+                  <GermanyEventsDropdown></GermanyEventsDropdown>
+                </div>
+              </div>
+          </v-content>
+        </v-flex>  
+      </v-layout>
+    </div>
   </div>
 </template>
 
@@ -27,3 +41,8 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+
+</style>

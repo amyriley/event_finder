@@ -1,36 +1,45 @@
 <template>
     <div id="event-card-search-result" >
         <div class="event-card" v-for="(event, index) in filteredEvents" :key="index">
-            <v-flex xs12>
-                <v-card flat>
-                    <v-container fluid grid-list-lg>
-                        <v-layout row wrap>
-                            <v-flex xs5>
-                                <v-img
-                                    src="https://cdn.vuetifyjs.com/images/cards/foster.jpg"
-                                    height="125px"
-                                    contain
-                                ></v-img>
-                            </v-flex>
-                            <v-flex xs7>
-                                <v-card-title primary-title class="text-xs-left-center">
-                                    <div>
-                                        <div class="subheading">{{ event.performance[0].displayName }}</div>
-                                        <div>{{ moment( event.start.date ).format("ddd, MMM Do YYYY") }} </div>
-                                        <div>{{ event.venue.displayName }}</div>
-                                    </div>
-                                </v-card-title>
-                                <v-card-actions>
-                                    <v-btn @click.native="loadEventsForSameVenue" :to="{ name: 'detailed-event-info', params: { eventID: event.id, venueID: event.venue.id, event: event }}" class="text-xs-left" flat>More Details</v-btn>
-                                    <v-btn icon disabled>
-                                        <v-icon>star</v-icon>
-                                    </v-btn>
-                                </v-card-actions>
-                            </v-flex>
-                        </v-layout>
-                    </v-container>
-                </v-card>
-            </v-flex>
+            <v-card color="grey">
+                <v-container fluid grid-list>
+                    <v-layout row wrap>
+                        <v-flex xs12>
+                            <v-card color="blue-grey darken-2" class="white--text">
+                            <v-layout>
+                                <v-flex xs5 ma-2>
+                                    <v-img
+                                        src="https://cdn.vuetifyjs.com/images/cards/foster.jpg"
+                                        height="125px"
+                                        contain
+                                    ></v-img>
+                                </v-flex>
+                                <v-flex xs7>
+                                    <v-card-title primary-title>
+                                        <div>
+                                            <div class="headline">{{ event.performance[0].displayName }}</div>
+                                            <div class="font-weight-light">{{ moment( event.start.date ).format("ddd, MMM Do YYYY") }} </div>
+                                            <div>{{ event.venue.displayName }}</div>
+                                        </div>
+                                    </v-card-title>
+                                </v-flex>
+                            </v-layout>
+                            <v-card-actions>
+                                <v-flex class="text-xs-right">
+                                    <v-btn 
+                                    color="success"
+                                    round
+                                    @click.native="loadEventsForSameVenue" :to="{ name: 'detailed-event-info', params: { eventID: event.id, venueID: event.venue.id, event: event }}" class="white--text">More Details</v-btn>
+                                </v-flex>
+                                <v-btn icon disabled>
+                                    <v-icon>star</v-icon>
+                                </v-btn>
+                            </v-card-actions>
+                            </v-card>
+                        </v-flex>
+                    </v-layout>
+                </v-container>
+            </v-card>
         </div>
     </div>
 </template>
@@ -43,15 +52,19 @@ import moment from 'moment'
 
 export default {
     name: 'event-card-search-result',
-    props: ['metroAreaId'],
-    mounted () {
-        this.$store.dispatch('loadEvents', this.$props.metroAreaId);
-    },
+    // props: ['metroAreaId'],
+    // mounted () {
+    //     console.log('eventCardSearchResult')
+    //     // console.log('test' + this.$store.state.metroAreaId)
+    //     console.log(this.$store.state.metroAreaId)
+    //     this.$store.dispatch('loadEvents', this.$store.state.metroAreaId);
+    // },
     computed: {
         ...mapState([
             'events',
             'searchInput',
-            'searchDate'
+            'searchDate',
+            'metroAreaId'
         ]),
         filteredEvents () {
             if (this.searchInput === '' && this.searchDate === '') {
@@ -67,7 +80,17 @@ export default {
         loadEventsForSameVenue: function () {
             this.$store.dispatch('loadEventsForSameVenue', router.currentRoute.params.venueID);
         },
-        moment
+        moment,
     },
 }
 </script>
+
+<style scoped>
+/* @media (max-width: 400px) {
+    .event-card {
+    height: 40px;
+    background-color: green;
+  }
+} */
+
+</style>

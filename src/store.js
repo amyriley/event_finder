@@ -4,11 +4,18 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import apiConfig from '@/apiKeys';
 
+// import * as firebase from 'firebase';
+// import 'firebase/auth';
+
+// var database = firebase.database();
+
 Vue.use(Vuex)
 Vue.use(VueAxios, axios)
 
 export default new Vuex.Store({
   state: {
+    currentUser: {},
+    metroAreaId: '',
     locationId: '',
     germanyLocations: [],
     germanyEvents: [],
@@ -26,6 +33,22 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    // init ({ commit }) {
+    //   firebase.auth().onAuthStateChanged((user) => {
+    //     if (user) {
+    //       commit('SET_USER', { user });
+    //     } else {
+    //       commit('UNSET_USER');
+    //     }
+    //   });
+    // },
+    // login () {
+    //   var authProvider = new firebase.auth.GoogleAuthProvider();
+    //   return firebase.auth().signInWithPopup(authProvider);
+    // },
+    // logout () {
+    //   firebase.auth().signOut();
+    // },
     loadGermanyLocations({ commit }) {
       this.loading = true;
       axios
@@ -88,9 +111,14 @@ export default new Vuex.Store({
     },
    },
   mutations: {
+    // SET_USER (state, { user }) {
+    //   state.currentUser = user;
+    // },
+    // UNSET_USER (state) {
+    //   state.currentUser = {};
+    // },
     SET_GERMANY_LOCATIONS (state, germanyLocations) {
       state.germanyLocations = germanyLocations;
-      console.log('set locations')
     },
     SET_EVENTS (state, events) {
       state.events = events;
@@ -103,6 +131,9 @@ export default new Vuex.Store({
     },
     UPDATE_SEARCH_DATE (state, value) {
       state.searchDate = value;
+    },
+    UPDATE_METRO_AREA_ID (state, metroAreaId) {
+      state.metroAreaId = metroAreaId;
     }
   }
 })

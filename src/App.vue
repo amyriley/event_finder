@@ -1,6 +1,8 @@
 <template>
-  <v-app>
+  <v-app style="background-color: grey">
     <v-content>
+      <div>
+      </div>
       <router-view></router-view>
     </v-content>
   </v-app>
@@ -8,6 +10,7 @@
 
 <script>
 import apiConfig from '@/apiKeys';
+import { mapState } from 'vuex';
 
 export default {
   name: 'App',
@@ -15,6 +18,11 @@ export default {
     return {
       //
     }
-  }
+  },
+  computed: {
+    ...mapState({
+      currentUser: state => state.currentUser
+    })
+  },
 }
 </script>
