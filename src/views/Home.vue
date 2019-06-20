@@ -3,12 +3,12 @@
     <div>
       <v-layout align-center>
         <v-flex xs12>
-          <v-content class="text-xs-center white--text">
+          <v-content class="mainContent text-xs-center white--text">
               <div>
                 <v-flex>
                   <div class="display-1 text-xs-center pa-5 ma-4">Music Event Finder</div>
                 </v-flex>
-                <v-flex class="pa-5">
+                <v-flex class="pa-2">
                   <div class="title">Find live music events near you!</div>
                 </v-flex>
                 <div>
@@ -41,8 +41,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-
-</style>

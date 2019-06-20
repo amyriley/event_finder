@@ -29,12 +29,11 @@
                         </v-flex>
                         <v-card-actions>
                             <v-flex class="text-xs-center mb-3 mt-3">
-                                <v-btn 
+                                <!-- <v-btn 
                                     :href="event.uri" 
                                     color="success"
-                                    round
                                     >Tickets
-                                </v-btn>
+                                </v-btn> -->
                             </v-flex>
                         </v-card-actions>
                         <div class="text-xs-center">

@@ -35,17 +35,16 @@
                                 </v-flex>
                             </v-layout>
                             <v-card-actions>
-                                <v-flex class="text-xs-right">
-                                    <v-btn 
+                                <!-- <v-flex class="text-xs-right"> -->
+                                    <!-- <v-btn 
                                     :href="event.uri" 
                                     class="text-xs-left white--text" 
                                     color="success"
-                                    round
-                                    >Tickets</v-btn>
-                                </v-flex>
+                                    >Tickets</v-btn> -->
+                                <!-- </v-flex>
                                 <v-btn icon disabled>
                                     <v-icon>star</v-icon>
-                                </v-btn>
+                                </v-btn> -->
                             </v-card-actions>
                             </v-card>
                         </v-flex>

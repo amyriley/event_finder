@@ -2,7 +2,10 @@
     <div id="germany-events-dropdown">
         <template>
             <div class="text-xs-center">
-                <v-menu offset-y>
+                <v-menu 
+                bottom
+                auto  
+                dark>
                     <template v-slot:activator="{ on }">
                         <div class="text-xs-center">
                             <v-btn
@@ -15,7 +18,7 @@
                         </div>
                     </template>
                     <v-list>
-                        <v-list-tile v-for="(location, index) in germanyLocations" :key="index" :to="{ name: 'search-events', params: { location: location }}" @click.native="loadEvents">
+                        <v-list-tile v-for="(location, index) in germanyLocations" :key="index" :to="{ name: 'search-events', params: { location: location }}" @click.native="loadEvents() + updateCityName()">
                             <v-list-tile-title >{{ location.cityName }}</v-list-tile-title>
                         </v-list-tile>
                     </v-list>
@@ -45,6 +48,9 @@ export default {
             this.$store.commit('UPDATE_METRO_AREA_ID', router.currentRoute.params.location.metroAreaId);
             this.$store.dispatch('loadEvents', router.currentRoute.params.location.metroAreaId);
         },
+        updateCityName: function () {
+            this.$store.commit('SET_CITY_NAME', router.currentRoute.params.location.cityName);
+        }
     }
 }
 </script>

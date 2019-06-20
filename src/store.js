@@ -4,21 +4,14 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import apiConfig from '@/apiKeys';
 
-// import * as firebase from 'firebase';
-// import 'firebase/auth';
-
-// var database = firebase.database();
-
 Vue.use(Vuex)
 Vue.use(VueAxios, axios)
 
 export default new Vuex.Store({
   state: {
-    currentUser: {},
+    cityName: '',
     metroAreaId: '',
-    locationId: '',
     germanyLocations: [],
-    germanyEvents: [],
     events: [],
     eventsSameVenue: [],
     searchInput: '',
@@ -33,32 +26,14 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    // init ({ commit }) {
-    //   firebase.auth().onAuthStateChanged((user) => {
-    //     if (user) {
-    //       commit('SET_USER', { user });
-    //     } else {
-    //       commit('UNSET_USER');
-    //     }
-    //   });
-    // },
-    // login () {
-    //   var authProvider = new firebase.auth.GoogleAuthProvider();
-    //   return firebase.auth().signInWithPopup(authProvider);
-    // },
-    // logout () {
-    //   firebase.auth().signOut();
-    // },
     loadGermanyLocations({ commit }) {
       this.loading = true;
       axios
         .get(`https://api.songkick.com/api/3.0/search/locations.json?query=germany&per_page=100&apikey=${apiConfig.songkickKey}`)
         .then(data => {
-          console.log(data.data.resultsPage.results.location);
 
           let locationData = data.data.resultsPage.results.location;
 
-          // clean me :)
           let germanyLocations = locationData
             .filter(l => l.city.country.displayName === 'Germany')
             .map(l => {
@@ -76,7 +51,6 @@ export default new Vuex.Store({
             });
 
           commit('SET_GERMANY_LOCATIONS', germanyLocations);
-          console.log('commit germanyLocations')
         })
         .catch(error => {
           console.log(error);
@@ -111,12 +85,9 @@ export default new Vuex.Store({
     },
    },
   mutations: {
-    // SET_USER (state, { user }) {
-    //   state.currentUser = user;
-    // },
-    // UNSET_USER (state) {
-    //   state.currentUser = {};
-    // },
+    SET_CITY_NAME (state, cityName) {
+      state.cityName = cityName;
+    },
     SET_GERMANY_LOCATIONS (state, germanyLocations) {
       state.germanyLocations = germanyLocations;
     },

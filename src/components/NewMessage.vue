@@ -1,18 +1,29 @@
 <template>
     <div class="new-message">
-        <label for="new-message">New Message</label>
-        <input type="text" name="new-message" v-model="newMessage">
-        <v-btn v-on:click.prevent="addMessage">Enter</v-btn>
+        <label class="font-weight-light" for="new-message">New message:</label>
+        <v-text-field
+            v-model="newMessage"
+            name="new-message"
+            label="type here"
+            color="black"
+            font-weight-light
+            caption
+            prepend-icon="face"
+        ></v-text-field>
+        <v-btn v-on:click.prevent="addMessage">Send</v-btn>
         <p v-if="feedback">{{ feedback }}</p>
     </div>
 </template>
 
 <script>
 import db from '@/firebase/init'
+import moment from 'moment'
+import Welcome from '@/components/Welcome'
+import LiveChat from '@/components/LiveChat'
 
 export default {
     name: 'NewMessage',
-    props: ['name'],
+    props: ['name', 'usernameDisplay'],
     data () {
         return {
             newMessage: null,
@@ -24,7 +35,7 @@ export default {
             if(this.newMessage) {
                 db.collection('messages').add({
                     content: this.newMessage,
-                    name: this.name,
+                    name: this.usernameDisplay,
                     timestamp: Date.now()
                 }).catch(err => {
                     console.log(err)
@@ -32,10 +43,11 @@ export default {
                 this.newMessage = null;
                 this.feedback = null;
             } else {
-                this.feedback = 'must enter a message in order to send'
+                this.feedback = 'You must enter a message in order to send'
             }
-        }
-    }
+        },
+        moment
+    },
 }
 </script>
 

@@ -3,21 +3,23 @@
     <nav>
       <v-toolbar flat app dark>
         <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
-        <v-spacer></v-spacer>
+        <!-- <v-spacer></v-spacer> -->
         <input type="text" v-model="searchInput" placeholder="search artists"/>
         <v-menu>
           <v-text-field slot="activator" :value="getSelectedDateLabel(searchDate)"  prepend-icon="date_range" ></v-text-field>
-          <v-date-picker v-model="searchDate"></v-date-picker>
+          <v-date-picker class="datePicker" v-model="searchDate"></v-date-picker>
       </v-menu>
       </v-toolbar>
       <v-navigation-drawer v-model="drawer" app></v-navigation-drawer>
     </nav>
+    <div class="subheading ma-2 white--text">Music events in the {{ cityName }} metro area...</div>
     <EventCardSearchResult></EventCardSearchResult>
     <NavigationBottom></NavigationBottom>
   </div>
 </template>
 
 <script>
+import GermanyEventsDropdown from '@/components/GermanyEventsDropdown'
 import NavigationBottom from '@/components/NavigationBottom'
 import EventCardSearchResult from '@/components/EventCardSearchResult'
 import { mapState } from 'vuex'
@@ -29,7 +31,8 @@ export default {
   props: ['location'],
   components: {
     EventCardSearchResult,
-    NavigationBottom
+    NavigationBottom,
+    GermanyEventsDropdown
   },
   data() {
     return {
@@ -38,6 +41,7 @@ export default {
   },
   computed: {
     ...mapState([
+            'cityName',
             'events',
             'searchInput',
             'searchDate',
@@ -64,9 +68,9 @@ export default {
     moment,
     getSelectedDateLabel: (date) => {
       if (!date) {
-        return 'search date';
+        return 'date';
       } else {
-        return moment(date).format('ddd, MMM Do YYYY');
+        return moment(date).format('ll');
       }
     }
   }

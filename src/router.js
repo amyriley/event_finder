@@ -5,7 +5,8 @@ import SearchEvents from './views/SearchEvents.vue'
 import DetailedEventInfo from './views/DetailedEventInfo.vue'
 import Welcome from './components/Welcome.vue'
 import LiveChat from './components/LiveChat.vue'
-
+import Signup from './components/auth/Signup.vue'
+import Login from './components/auth/Login.vue'
 
 Vue.use(Router)
 
@@ -36,18 +37,30 @@ export default new Router({
       name: 'live-chat',
       component: LiveChat,
       props: true,
-      beforeEnter: (to, from, next) => {
-        if(to.params.name) {
-          next()
-        } else {
-            next({ name: 'welcome' })
-        }
-      }
+      // beforeEnter: (to, from, next) => {
+      //   if(to.params.name) {
+      //     next()
+      //   } else {
+      //       next({ name: 'signup' })
+      //   }
+      // }
     },
     {
       path: '/Welcome',
       name: 'welcome',
-      component: Welcome
+      component: Welcome,
+      props: true
+    },
+    {
+      path: '/Signup',
+      name: 'signup',
+      component: Signup,
+      props: true
+    },
+    {
+      path: '/Login',
+      name: 'login',
+      component: Login
     },
   ]
 })
