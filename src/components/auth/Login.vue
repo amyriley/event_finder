@@ -1,12 +1,12 @@
 <template>
     <div id="login">
         <v-container>
-            <v-flex class="text-xs-center white--text mb-3">
+            <v-flex class="text-xs-center white--text mt-3 mb-3">
                 <div class="subheading">Login to your Event Finder account</div>
             </v-flex>
             <v-card>
-                <v-flex class="ma-3">
-                    <label class="font-weight-light mt-2" for="email">Email address:</label>
+                <v-flex class="pt-2 ma-3">
+                    <label class="font-weight-light" for="email">Email address:</label>
                     <v-text-field
                         v-model="email"
                         name="email"
@@ -42,6 +42,8 @@
 <script>
 import NavigationBottom from '@/components/NavigationBottom'
 import firebase from 'firebase'
+import { mapState } from 'vuex'
+
 
 export default {
     name: 'Login',
@@ -52,6 +54,11 @@ export default {
             feedback: null
         }
     },
+    computed: {
+        ...mapState([
+            'currentUser',
+        ]),
+    },
     components: {
         NavigationBottom
     },
@@ -61,6 +68,7 @@ export default {
                 firebase.auth().signInWithEmailAndPassword(this.email, this.password)
                 .then(cred => {
                     this.$router.push({ name: 'welcome'})
+                    this.$store.commit('SET_CURRENT_USER', this.username);
                 }).catch(err => {
                     this.feedback = err.message
                 })
@@ -68,7 +76,7 @@ export default {
             } else {
                 this.feedback = 'Please fill out both fields'
             }
-        }
+        },
     }
 }
 </script>

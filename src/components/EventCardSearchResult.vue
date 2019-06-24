@@ -18,7 +18,7 @@
                                     <v-flex xs7>
                                         <v-card-title primary-title>
                                             <div>
-                                                <div class="headline">{{ event.performance[0].displayName }}</div>
+                                                <div class="title text-wrap">{{ event.performance[0].displayName }}</div>
                                                 <div class="font-weight-light">{{ moment( event.start.date ).format("ddd, MMM Do YYYY") }} </div>
                                                 <div>{{ event.venue.displayName }}</div>
                                             </div>
@@ -31,9 +31,11 @@
                                         color="success"
                                         @click.native="loadEventsForSameVenue" :to="{ name: 'detailed-event-info', params: { eventID: event.id, venueID: event.venue.id, event: event }}" class="white--text">More Details</v-btn>
                                     </v-flex>
-                                    <v-btn icon disabled>
-                                        <v-icon>star</v-icon>
-                                    </v-btn>
+                                    <div>
+                                        <v-btn :class="{selected: selected}" icon @click.native="addToFavourites(event)">
+                                            <v-icon >star</v-icon>
+                                        </v-btn>
+                                    </div>
                                 </v-card-actions>
                                 </v-card>
                             </v-flex>
@@ -50,9 +52,17 @@ import { mapState } from 'vuex'
 import { mapActions } from 'vuex'
 import router from '@/router'
 import moment from 'moment'
+import db from '@/firebase/init'
 
 export default {
     name: 'event-card-search-result',
+    data() {
+        return {
+            favourite: null,
+            starIcon: '',
+            selected: false
+        }
+    },
     computed: {
         ...mapState([
             'events',
@@ -69,16 +79,36 @@ export default {
                 return event.performance[0].displayName.toLowerCase().match(this.searchInput.toLowerCase()) && event.start.date.match(this.searchDate)
             })
         },
+        compClasses: function(){
+            return {
+                selected: this.selected
+            }
+        }
     },
     methods: {
         loadEventsForSameVenue: function () {
             this.$store.dispatch('loadEventsForSameVenue', router.currentRoute.params.venueID);
         },
         moment,
+        addToFavourites: function (event) {
+            db.collection('favourites').add({
+                name: event.performance[0].displayName,
+                date: event.start.date,
+                venue: event.venue.displayName,
+                timestamp: moment( Date.now() ).format("ddd, MMM Do YYYY"),
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        }
     },
 }
 </script>
 
-<style scoped>
+<style>
+
+.selected {
+    background-color: white
+}
 
 </style>

@@ -19,11 +19,11 @@ export default {
       //
     }
   },
-  computed: {
-    ...mapState({
-      currentUser: state => state.currentUser
-    })
-  },
+  // computed: {
+  //   ...mapState({
+  //     currentUser: state => state.currentUser
+  //   })
+  // },
 }
 </script>
 

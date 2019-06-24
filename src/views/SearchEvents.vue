@@ -2,15 +2,12 @@
   <div class="search-events">
     <nav>
       <v-toolbar flat app dark>
-        <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
-        <!-- <v-spacer></v-spacer> -->
         <input type="text" v-model="searchInput" placeholder="search artists"/>
         <v-menu>
           <v-text-field slot="activator" :value="getSelectedDateLabel(searchDate)"  prepend-icon="date_range" ></v-text-field>
           <v-date-picker class="datePicker" v-model="searchDate"></v-date-picker>
       </v-menu>
       </v-toolbar>
-      <v-navigation-drawer v-model="drawer" app></v-navigation-drawer>
     </nav>
     <div class="subheading ma-2 white--text">Music events in the {{ cityName }} metro area...</div>
     <EventCardSearchResult></EventCardSearchResult>
@@ -33,11 +30,6 @@ export default {
     EventCardSearchResult,
     NavigationBottom,
     GermanyEventsDropdown
-  },
-  data() {
-    return {
-      drawer: false,
-    }
   },
   computed: {
     ...mapState([

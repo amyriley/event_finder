@@ -20,6 +20,7 @@ import db from '@/firebase/init'
 import moment from 'moment'
 import Welcome from '@/components/Welcome'
 import LiveChat from '@/components/LiveChat'
+import { mapState } from 'vuex'
 
 export default {
     name: 'NewMessage',
@@ -30,12 +31,17 @@ export default {
             feedback: null
         }
     },
+    computed: {
+        ...mapState([
+            'currentUser',
+        ]),
+    },
     methods: {
         addMessage() {
             if(this.newMessage) {
                 db.collection('messages').add({
                     content: this.newMessage,
-                    name: this.usernameDisplay,
+                    name: this.$state.currentUser,
                     timestamp: Date.now()
                 }).catch(err => {
                     console.log(err)

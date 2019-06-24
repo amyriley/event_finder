@@ -18,7 +18,7 @@
                                 <v-flex xs7>
                                     <v-card-title primary-title>
                                         <div>
-                                            <div class="headline">{{ event.performance[0].displayName }}</div>
+                                            <div class="title">{{ event.performance[0].displayName }}</div>
                                             <div class="font-weight-light">{{ moment( event.start.date ).format("ddd, MMM Do YYYY") }} </div>
                                             <div>
                                                 <template v-if="event.start.time === null">
@@ -35,16 +35,11 @@
                                 </v-flex>
                             </v-layout>
                             <v-card-actions>
-                                <!-- <v-flex class="text-xs-right"> -->
-                                    <!-- <v-btn 
-                                    :href="event.uri" 
-                                    class="text-xs-left white--text" 
-                                    color="success"
-                                    >Tickets</v-btn> -->
-                                <!-- </v-flex>
-                                <v-btn icon disabled>
+                                <v-flex class="text-xs-right">
+                                    <v-btn class="white--text" icon disabled>
                                     <v-icon>star</v-icon>
-                                </v-btn> -->
+                                </v-btn>
+                                </v-flex>
                             </v-card-actions>
                             </v-card>
                         </v-flex>

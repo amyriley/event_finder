@@ -9,6 +9,7 @@ Vue.use(VueAxios, axios)
 
 export default new Vuex.Store({
   state: {
+    currentUser: [],
     cityName: '',
     metroAreaId: '',
     germanyLocations: [],
@@ -85,6 +86,10 @@ export default new Vuex.Store({
     },
    },
   mutations: {
+    SET_CURRENT_USER (state, currentUser) {
+      state.currentUser = currentUser
+      console.log(state.currentUser)
+    },
     SET_CITY_NAME (state, cityName) {
       state.cityName = cityName;
     },

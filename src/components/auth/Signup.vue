@@ -1,37 +1,43 @@
 <template>
     <div id="signup">
         <v-container>
+            <v-flex class="text-xs-center white--text mt-3 mb-3">
+                <div class="subheading">Register for an Event Finder account</div>
+            </v-flex>
             <v-card>
-                <div class="display-1 ma-3">Signup</div>
-                <label class="font-weight-light" for="email">Email address:</label>
-                <v-text-field
-                    v-model="email"
-                    name="email"
-                    label="email address"
-                    color="black"
-                    font-weight-light
-                    caption
-                ></v-text-field>
-                <label class="font-weight-light" for="password">Password:</label>
-                <v-text-field
-                    v-model="password"
-                    name="password"
-                    label="password"
-                    color="black"
-                    font-weight-light
-                    caption
-                ></v-text-field>
-                <label class="font-weight-light" for="username">Username:</label>
-                <v-text-field
-                    v-model="username"
-                    name="username"
-                    label="username"
-                    color="black"
-                    font-weight-light
-                    caption
-                ></v-text-field>
-                <p v-if="feedback">{{ feedback }}</p>
-                <v-btn v-on:click.prevent="signup">Signup</v-btn>
+                <v-flex class="pt-2 ma-3">
+                    <label class="font-weight-light" for="email">Email address:</label>
+                    <v-text-field
+                        v-model="email"
+                        name="email"
+                        label="email address"
+                        color="black"
+                        font-weight-light
+                        caption
+                    ></v-text-field>
+                    <label class="font-weight-light" for="password">Password:</label>
+                    <v-text-field
+                        v-model="password"
+                        name="password"
+                        label="password"
+                        color="black"
+                        font-weight-light
+                        caption
+                    ></v-text-field>
+                    <label class="font-weight-light" for="username">Username:</label>
+                    <v-text-field
+                        v-model="username"
+                        name="username"
+                        label="username"
+                        color="black"
+                        font-weight-light
+                        caption
+                    ></v-text-field>
+                    <p v-if="feedback">{{ feedback }}</p>
+                </v-flex>
+                <v-flex class="text-xs-center">
+                    <v-btn v-on:click="signup">Register</v-btn>
+                </v-flex>
             </v-card>
         </v-container>
         <NavigationBottom></NavigationBottom>
@@ -67,28 +73,23 @@ export default {
                     remove: /[!@#$^&%*()+=-[]\/{}:<>,.]/g,
                     lower: true
                 })
-                // let ref = db.collection('users').doc(this.slug)
-                    // if(doc.exists) {
-                    //     this.feedback = 'This username already exists'
-                    // } else {
-                        firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-                        .then(cred => {
-                            console.log(cred)
-                            let ref = db.collection('users').doc(cred.user.uid)
-                            ref.set({
-                                username: this.username,
-                                user_id: cred.user.uid
-                            })
-                        }).then(() => {
-                            this.$router.push({ name: 'welcome'})
-                        })
-                        .catch(err => {
-                            console.log(err)
-                            this.feedback = err.message
-                        })
-                        this.feedback = 'This username is free to use'
-            
-                console.log(this.slug)
+                firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+                .then(cred => {
+                    console.log(cred)
+                    let ref = db.collection('users').doc(cred.user.uid)
+                    ref.set({
+                        username: this.username,
+                        user_id: cred.user.uid
+                    })
+                }).then(() => {
+                    // this.$store.commit('SET_CURRENT_USER', this.username);
+                    this.$router.push({ name: 'welcome'})
+                })
+                .catch(err => {
+                    console.log(err)
+                    this.feedback = err.message
+                })
+                this.feedback = 'This username is free to use'
             } else {
                 this.feedback = 'You must complete all fields'
             }

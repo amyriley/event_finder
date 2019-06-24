@@ -37,13 +37,6 @@ export default new Router({
       name: 'live-chat',
       component: LiveChat,
       props: true,
-      // beforeEnter: (to, from, next) => {
-      //   if(to.params.name) {
-      //     next()
-      //   } else {
-      //       next({ name: 'signup' })
-      //   }
-      // }
     },
     {
       path: '/Welcome',

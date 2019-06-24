@@ -29,11 +29,6 @@
                         </v-flex>
                         <v-card-actions>
                             <v-flex class="text-xs-center mb-3 mt-3">
-                                <!-- <v-btn 
-                                    :href="event.uri" 
-                                    color="success"
-                                    >Tickets
-                                </v-btn> -->
                             </v-flex>
                         </v-card-actions>
                         <div class="text-xs-center">
@@ -61,6 +56,7 @@ import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
 import gmapsInit from '@/utils/gmaps';
 import moment from 'moment'
+import apiConfig from '@/apiKeys';
 
 export default {
     name: 'detailed-event-card',
@@ -81,7 +77,7 @@ export default {
     methods: {
         moment,
         mapSrcUrl: function (venueName, venueCity) {
-            return `https://www.google.com/maps/embed/v1/place?key=AIzaSyBZtrE2I0U1lgd9cr65s5khYysvNjb8CMM&q=${venueName},${venueCity}`
+            return `https://www.google.com/maps/embed/v1/place?key=${apiConfig.googleMapsKey}&q=${venueName},${venueCity}`
         }
     }
 }
